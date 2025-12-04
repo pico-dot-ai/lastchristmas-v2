@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "framework": "nextjs",
+  "buildCommand": "cd web && npm run build",
+  "installCommand": "cd web && npm ci",
+  "outputDirectory": "web/.next",
+  "routes": [
+    { "src": "/(.*)", "dest": "web/$1" }
+  ]
+}
