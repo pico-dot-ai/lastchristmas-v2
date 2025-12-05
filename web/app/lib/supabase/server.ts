@@ -1,6 +1,6 @@
 import { createServerClient } from '@supabase/ssr';
-import { cookies, headers } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import type { NextRequest, NextResponse } from 'next/server';
 
 export const getSupabaseEnv = () => {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? process.env.SUPABASE_URL;
@@ -52,39 +52,39 @@ export const getServerComponentSupabaseClient = async () => {
   });
 };
 
-export const getRouteHandlerSupabaseClient = async () => {
+export const getRouteHandlerSupabaseClient = (request: NextRequest) => {
   const { supabaseUrl, supabaseKey } = getSupabaseEnv();
   return createServerClient(supabaseUrl, supabaseKey, {
-    cookies: await getCookieAdapter(),
+    cookies: {
+      get(name: string) {
+        return request.cookies.get(name)?.value;
+      },
+      set() {
+        /* read-only for API routes */
+      },
+      remove() {
+        /* read-only for API routes */
+      },
+    },
   });
 };
 
-export const getRouteHandlerSupabaseClientWithResponse = async (request: Request, response: NextResponse) => {
+export const getRouteHandlerSupabaseClientWithResponse = (
+  request: NextRequest,
+  response: NextResponse,
+) => {
   const { supabaseUrl, supabaseKey } = getSupabaseEnv();
-  const store = await cookies();
 
   return createServerClient(supabaseUrl, supabaseKey, {
     cookies: {
       get(name: string) {
-        const raw = (store as unknown as { get?: (key: string) => any }).get?.(name);
-        if (!raw) return undefined;
-        if (typeof raw === 'string') return raw;
-        if (typeof raw === 'object' && 'value' in raw) return (raw as { value?: string }).value;
-        return undefined;
+        return request.cookies.get(name)?.value;
       },
       set(name: string, value: string, options: any) {
-        try {
-          response.cookies.set({ name, value, ...options });
-        } catch {
-          /* no-op */
-        }
+        response.cookies.set({ name, value, ...options });
       },
       remove(name: string, options: any) {
-        try {
-          response.cookies.set({ name, value: '', ...options, maxAge: 0 });
-        } catch {
-          /* no-op */
-        }
+        response.cookies.set({ name, value: '', ...options, maxAge: 0 });
       },
     },
   });

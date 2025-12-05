@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getRouteHandlerSupabaseClient } from '../../lib/supabase/server';
 import { fetchOrCreateProfile, upsertProfileForUser } from '../../modules/user/profile-service';
 
-export async function GET() {
-  const supabase = await getRouteHandlerSupabaseClient();
+export async function GET(request: NextRequest) {
+  const supabase = getRouteHandlerSupabaseClient(request);
   const {
     data: { user },
     error: sessionError,
@@ -26,8 +26,8 @@ export async function GET() {
   }
 }
 
-export async function PUT(request: Request) {
-  const supabase = await getRouteHandlerSupabaseClient();
+export async function PUT(request: NextRequest) {
+  const supabase = getRouteHandlerSupabaseClient(request);
   const {
     data: { user },
     error: sessionError,

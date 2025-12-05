@@ -1,11 +1,11 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { getRouteHandlerSupabaseClient } from '../../../lib/supabase/server';
 import { upsertProfileForUser } from '../../../modules/user/profile-service';
 
 const AVATAR_BUCKET = 'avatars';
 
-export async function POST(request: Request) {
-  const supabase = await getRouteHandlerSupabaseClient();
+export async function POST(request: NextRequest) {
+  const supabase = getRouteHandlerSupabaseClient(request);
   const {
     data: { session },
     error: sessionError,
@@ -41,16 +41,14 @@ export async function POST(request: Request) {
     );
   }
 
-  const {
-    data: { publicUrl },
-  } = supabase.storage.from(AVATAR_BUCKET).getPublicUrl(uploadData.path);
-
   try {
     const profile = await upsertProfileForUser(supabase, session.user, {
-      avatarUrl: publicUrl,
+      avatarUrl: uploadData.path,
     });
 
-    return NextResponse.json({ profile });
+    const { data: signed } = await supabase.storage.from(AVATAR_BUCKET).createSignedUrl(uploadData.path, 60 * 60);
+
+    return NextResponse.json({ profile: { ...profile, avatarUrl: signed?.signedUrl ?? null } });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unable to update avatar.';
     return NextResponse.json({ error: message }, { status: 500 });
