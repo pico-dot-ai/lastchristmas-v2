@@ -16,7 +16,11 @@ type ProfileRow = {
   last_name: string | null;
 };
 
-const mapProfile = (row: ProfileRow, email: string | null, signedAvatarUrl?: string | null): UserProfile => ({
+const mapProfile = (
+  row: ProfileRow,
+  email: string | null | undefined,
+  signedAvatarUrl?: string | null,
+): UserProfile => ({
   id: row.id,
   email: email ?? 'Unknown user',
   displayName: row.display_name ?? email ?? 'Player',
@@ -50,7 +54,7 @@ export const fetchOrCreateProfile = async (
 
   if (data) {
     const signedAvatarUrl = await generateSignedAvatarUrl(supabase, (data as ProfileRow).avatar_url);
-    return mapProfile(data as ProfileRow, user.email, signedAvatarUrl);
+    return mapProfile(data as ProfileRow, user.email ?? null, signedAvatarUrl);
   }
 
   const { firstName, lastName } = seedNames(user.user_metadata?.full_name);
@@ -73,7 +77,7 @@ export const fetchOrCreateProfile = async (
     throw new Error(insertError?.message ?? 'Unable to create user profile.');
   }
 
-  return mapProfile(inserted as ProfileRow, user.email, null);
+  return mapProfile(inserted as ProfileRow, user.email ?? null, null);
 };
 
 export type ProfileUpdateInput = {
@@ -110,7 +114,7 @@ export const upsertProfileForUser = async (
   }
 
   const signedAvatarUrl = await generateSignedAvatarUrl(supabase, (data as ProfileRow).avatar_url);
-  return mapProfile(data as ProfileRow, user.email, signedAvatarUrl);
+  return mapProfile(data as ProfileRow, user.email ?? null, signedAvatarUrl);
 };
 
 const generateSignedAvatarUrl = async (supabase: SupabaseClient, path: string | null) => {
