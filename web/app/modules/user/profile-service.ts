@@ -80,7 +80,7 @@ export const upsertProfileForUser = async (
     id: user.id,
     display_name: payload.displayName,
     avatar_url: payload.avatarUrl,
-    accent_color: payload.gradientColor ?? null,
+    accent_color: payload.gradientColor ?? undefined,
   };
 
   const { data, error } = await supabase

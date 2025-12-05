@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getRouteHandlerSupabaseClient } from '../../../lib/supabase/server';
-import { upsertProfileForUser } from '../../../modules/user/profile-service';
+import { fetchOrCreateProfile, upsertProfileForUser } from '../../../modules/user/profile-service';
 
 const AVATAR_BUCKET = 'avatars';
 
@@ -42,8 +42,11 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    const currentProfile = await fetchOrCreateProfile(supabase, session.user);
+
     const profile = await upsertProfileForUser(supabase, session.user, {
       avatarUrl: uploadData.path,
+      gradientColor: currentProfile.gradientColor ?? undefined,
     });
 
     const { data: signed } = await supabase.storage.from(AVATAR_BUCKET).createSignedUrl(uploadData.path, 60 * 60);
