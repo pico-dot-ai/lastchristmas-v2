@@ -13,6 +13,7 @@ export function UserCard() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [statusMessage, setStatusMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSessionResolved, setIsSessionResolved] = useState(false);
   const isSupabaseReady = isSupabaseConfigured();
 
   useEffect(() => {
@@ -20,6 +21,7 @@ export function UserCard() {
       setStatusMessage(
         'Supabase environment variables are missing. Configure NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY to enable authentication.',
       );
+      setIsSessionResolved(true);
       return () => undefined;
     }
 
@@ -38,6 +40,8 @@ export function UserCard() {
             ? error.message
             : 'Unable to load authentication session. Confirm Supabase configuration.',
         );
+      } finally {
+        setIsSessionResolved(true);
       }
     };
 
@@ -45,6 +49,7 @@ export function UserCard() {
 
     const subscription = onAuthStateChange((_event, session) => {
       setUser(session?.user ? mapUserToProfile(session.user) : null);
+      setIsSessionResolved(true);
     });
 
     return () => subscription.unsubscribe();
@@ -56,6 +61,10 @@ export function UserCard() {
     }
     return 'Sign in to get started';
   }, [user?.email]);
+
+  if (!isSessionResolved) {
+    return null;
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
