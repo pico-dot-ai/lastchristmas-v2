@@ -111,7 +111,7 @@ export function UserCard({ initialProfile, initialEmail = '' }: UserCardProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [isSupabaseReady]);
+  }, [initialProfile, isSupabaseReady]);
 
   const greeting = useMemo(() => {
     if (user?.email) {
@@ -323,7 +323,7 @@ export function UserCard({ initialProfile, initialEmail = '' }: UserCardProps) {
             <div className="user-card__avatar-wrapper">
               <div
                 className={`user-card__avatar ${
-                  isEditing || !user.avatarUrl ? 'user-card__avatar--editable' : ''
+                  isEditing ? 'user-card__avatar--editable' : ''
                 }`}
               >
                 {user.avatarUrl ? (
@@ -338,7 +338,7 @@ export function UserCard({ initialProfile, initialEmail = '' }: UserCardProps) {
                 ) : (
                   <div className="user-card__avatar-fallback" aria-hidden />
                 )}
-                {(isEditing || !user.avatarUrl) && (
+                {isEditing && (
                   <label className="user-card__avatar-upload" aria-label="Upload avatar">
                     {isUploadingAvatar ? (
                       <span className="avatar-dots" aria-hidden>

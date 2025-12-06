@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint --dir ./app --dir ./components --dir ./pages || true",
+    "lint": "eslint app --ext .js,.jsx,.ts,.tsx",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
