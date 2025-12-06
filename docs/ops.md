@@ -6,12 +6,13 @@
 - `SUPABASE_SECRET_KEY` (preferred for logging; `SUPABASE_SERVICE_ROLE_KEY` as fallback)
 - `OPENAI_API_KEY` (Watch Checker)
 - `TMDB_READ_TOKEN` (media search)
+- `NEXT_PUBLIC_SITE_URL` (used for magic-link redirects)
 
 `web/.env.example` holds placeholders; copy to `web/.env.local`.
 
 ## Runtime versions
 - Node.js 20.x LTS (local dev parity with Vercel).
-- Next.js 14.2.x (App Router).
+- Next.js 16.x (App Router).
 - Supabase JS client v2.x with hosted Supabase Postgres.
 - Vercel latest build/runtime image (Node 20 functions; edge routes where eligible).
 
@@ -19,7 +20,8 @@
 1. Use Node.js 20.x LTS.
 2. `cd web && npm install`
 3. `npm run dev` → open `http://localhost:3000`
-4. API stub: `/api/watch-check` responds when TMDB/OpenAI keys are set.
+4. Auth: passwordless magic-link only via Supabase.
+5. API stub: `/api/watch-check` responds when TMDB/OpenAI keys are set.
 
 ## Database and migrations
 - Migrations live in `supabase/migrations/` (0014 includes anon select for debug logs).

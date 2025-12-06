@@ -16,7 +16,7 @@ Mobile-first companion for “last one standing” knockout challenges. Canonica
 - Share summaries and invites via Web Share API or copy link; QR codes for joining.
 
 ## Requirements (functional)
-- Passwordless auth (magic link or passkeys) when auth is reintroduced; long-lived sessions.
+- Passwordless auth via magic link only; long-lived sessions.
 - Group admin controls: invite, approve/deny requests, remove members; members can leave.
 - Challenge management: start/end times (no backdating without override), multiple per group, opt-in per member.
 - Custom challenges gated by feature flag; popular presets browseable and attachable to any group.

@@ -1,9 +1,9 @@
 # Last Christmas – Developer Guide
 
-Mobile-first seasonal game companion for Whamageddon, Little Drummer Boy Challenge (LDBC), and other “last one standing” challenges. Installable as a PWA; runs on Next.js with Supabase for data/diagnostics.
+ Mobile-first seasonal game companion for Whamageddon, Little Drummer Boy Challenge (LDBC), and other “last one standing” challenges. Installable as a PWA; runs on Next.js with Supabase for data/diagnostics.
 
 ## What this repo contains
-- Next.js 14.2.x + TypeScript app (mobile-first, PWA-ready) in `web/` (requires Node.js 20.x LTS).
+- Next.js 16.x + TypeScript app (mobile-first, PWA-ready) in `web/` (requires Node.js 20.x LTS).
 - Supabase migrations for feature flags/logging and future game tables in `supabase/migrations/`.
 - Documentation in `docs/`:
   - `product.md` – product scope, rules, requirements, and clarifications.
@@ -13,9 +13,10 @@ Mobile-first seasonal game companion for Whamageddon, Little Drummer Boy Challen
 
 ## Runtime versions
 - Node.js 20.x LTS (preferred for local dev and Vercel builds).
-- Next.js 14.2.x (App Router).
+- Next.js 16.x (App Router).
 - Supabase JS client v2.x against hosted Supabase Postgres.
 - Vercel latest build/runtime image (Node.js 20 functions; edge for eligible routes).
+- Auth is passwordless magic link only; Supabase is used for auth plus flags/logging.
 
 ## Quick start
 1. Copy `web/.env.example` to `web/.env.local` and fill in Supabase + API keys.
@@ -25,4 +26,4 @@ Mobile-first seasonal game companion for Whamageddon, Little Drummer Boy Challen
 ## Current feature stub
 - API: `/api/watch-check` that searches TMDB with iTunes fallback and asks OpenAI for Whamageddon/LDBC risk.
 - UI: `WatchChecker` component (not yet on the blank homepage).
-- Auth/user flows are removed; Supabase is currently used only for flags/logging.
+- Auth is passwordless magic link only; Supabase is used for auth plus flags/logging.

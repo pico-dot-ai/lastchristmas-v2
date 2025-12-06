@@ -2,11 +2,11 @@
 
 import { FormEvent, useEffect, useState, type CSSProperties } from 'react';
 
-type LittleWhamProps = {
+type WatchSafeProps = {
   gradientColor?: string | null;
 };
 
-export function LittleWham({ gradientColor }: LittleWhamProps) {
+export function WatchSafe({ gradientColor }: WatchSafeProps) {
   const [query, setQuery] = useState('');
   const [status, setStatus] = useState('');
   const placeholders = [
@@ -50,40 +50,40 @@ export function LittleWham({ gradientColor }: LittleWhamProps) {
   };
 
   return (
-    <section className="little-wham">
-      <div className="little-wham__shell">
-        <div className="little-wham__hero" style={{ background: selectedGradient.gradient }}>
-          <div className="little-wham__hero-bg" />
-          <h2 className="little-wham__title">Can I watch this?</h2>
+    <section className="watch-safe">
+      <div className="watch-safe__shell">
+        <div className="watch-safe__hero" style={{ background: selectedGradient.gradient }}>
+          <div className="watch-safe__hero-bg" />
+          <h2 className="watch-safe__title">Watch Safe</h2>
         </div>
 
-        <div className="little-wham__body">
-          <header className="little-wham__header">
-            <p className="little-wham__subtitle">
+        <div className="watch-safe__body">
+          <header className="watch-safe__header">
+            <p className="watch-safe__subtitle">
               Any moment is an opportunity to go out, and your favorite movies and TV shows are no
               exception. Find out if you can safely hit play by searching here!
             </p>
           </header>
 
-          <form className="little-wham__form" onSubmit={handleSubmit}>
-            <label className="little-wham__label" htmlFor="little-wham-query">
+          <form className="watch-safe__form" onSubmit={handleSubmit}>
+            <label className="watch-safe__label" htmlFor="watch-safe-query">
               Movie or Show
             </label>
-            <div className="little-wham__input-row">
+            <div className="watch-safe__input-row">
               <input
-                id="little-wham-query"
-                name="little-wham-query"
+                id="watch-safe-query"
+                name="watch-safe-query"
                 type="text"
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
                 placeholder={placeholders[placeholderIndex]}
-                className="little-wham__input"
+                className="watch-safe__input"
                 style={{ '--placeholder-opacity': placeholderVisible ? 1 : 0 } as CSSProperties}
                 autoComplete="off"
               />
               <button
                 type="submit"
-                className="button button--secondary little-wham__button"
+                className="button button--secondary watch-safe__button"
                 disabled={!query.trim()}
               >
                 Bham!
@@ -91,11 +91,11 @@ export function LittleWham({ gradientColor }: LittleWhamProps) {
             </div>
           </form>
 
-          <div className="little-wham__status">
-            {status ? <p className="little-wham__status-text">{status}</p> : null}
-            <div className="little-wham__tags">
-              <span className="little-wham__pill">Whamageddon</span>
-              <span className="little-wham__pill">Drummer Boy</span>
+          <div className="watch-safe__status">
+            {status ? <p className="watch-safe__status-text">{status}</p> : null}
+            <div className="watch-safe__tags">
+              <span className="watch-safe__pill">Whamageddon</span>
+              <span className="watch-safe__pill">Drummer Boy</span>
             </div>
           </div>
         </div>

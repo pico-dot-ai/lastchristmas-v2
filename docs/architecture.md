@@ -1,7 +1,7 @@
 # Architecture – Last Christmas
 
 ## Stack and runtime
-- **UI**: Next.js 14.2.x (App Router) + React + TypeScript; mobile-first; PWA installable.
+- **UI**: Next.js 16.x (App Router) + React + TypeScript; mobile-first; PWA installable.
 - **Runtime**: Node.js 20.x LTS locally and on Vercel.
 - **Styling**: Tailwind-style utility classes via globals; can adopt full Tailwind config later.
 - **API**: Next.js route handlers/server actions; `/api/watch-check` lives under `app/api`.
@@ -17,7 +17,7 @@
   - Searches TMDB; falls back to iTunes.
   - Sends candidate metadata + user query to OpenAI; returns assessment of Whamageddon/LDBC risk.
   - Renders match, alternatives, and assessment badge in UI (not yet on the home page).
-- **Auth**: Removed; Supabase client remains for flags/logging only.
+- **Auth**: Passwordless magic-link via Supabase; client remains for flags/logging and profile/avatar ops.
 
 ## Data model (Supabase migrations)
 - **app schema** (future): users, groups, group_members, challenges, group_challenges, participants, invites.

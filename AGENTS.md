@@ -7,7 +7,7 @@ These instructions apply to the entire repository. Follow them alongside system 
 ## Core engineering principles
 - Prioritize clean, modular code with clear separation of responsibilities; isolate features so changes to one area do not ripple into others.
 - Favor simple, holistic solutions over quick fixes. When addressing an issue, consider the surrounding design before implementing changes.
-- Keep the mobile-first Next.js 14.2.x + TypeScript stack on Node.js 20.x LTS and Supabase backend architecture in mind (see `docs/architecture.md`).
+- Keep the mobile-first Next.js 16.x + TypeScript stack on Node.js 20.x LTS and Supabase backend architecture in mind (see `docs/architecture.md`).
 
 ## Supabase usage
 - Use `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` for routine Supabase operations. Reserve `SUPABASE_SECRET_KEY` only for destructive actions. **Do not use `SUPABASE_SERVICE_ROLE_KEY`.**
@@ -20,6 +20,8 @@ These instructions apply to the entire repository. Follow them alongside system 
 - Maintain feature flags and logging patterns consistent with current Supabase tables (see `supabase/migrations/`).
 - Avoid try/catch around imports.
 - Prefer structured, observable logging over ad hoc prints.
+- Maintain `PLAN.md` as the plan of record; update it at each step to reflect current tasks/status.
+- Reference supporting documents in `docs/` (product, architecture, ops, decisions) when refining the plan or implementing changes.
 
 ## Delivery reminders
 - Ensure solutions remain PWA-friendly and performant on mobile per `docs/product.md` requirements.

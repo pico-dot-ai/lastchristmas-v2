@@ -9,8 +9,8 @@
 - Out evidence: text note only (no media uploads).
 - Platform: mobile web + optional PWA; no required native shell.
 - Location: capture optional coarse location per-out with consent; omit for users under 18.
+- Auth: passwordless magic-link only (no passkeys/passwords).
 
 ## Open
 - Compliance/privacy: any additional regional age/location constraints to satisfy?
-- Pending auth reintroduction: confirm choice of magic link vs. passkeys flow and UI.
 - CI/testing baseline: pick required checks and coverage expectations.
