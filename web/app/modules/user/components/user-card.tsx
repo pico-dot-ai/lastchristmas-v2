@@ -99,10 +99,10 @@ export function UserCard({ initialProfile, initialEmail = '' }: UserCardProps) {
   }, [user?.email]);
 
   const gradientOptions: GradientOption[] = [
-    { id: 'ocean', gradient: 'linear-gradient(135deg, #2563eb, #0ea5e9)', accent: '#6c7bd9' },
-    { id: 'sunset', gradient: 'linear-gradient(135deg, #f97316, #fb7185)', accent: '#fcd34d' },
-    { id: 'forest', gradient: 'linear-gradient(135deg, #059669, #22c55e)', accent: '#bbf7d0' },
-    { id: 'twilight', gradient: 'linear-gradient(135deg, #7c3aed, #2563eb)', accent: '#c4b5fd' },
+    { id: 'ocean', gradient: 'linear-gradient(135deg, #2563eb, #0ea5e9)', accent: '#6377cb' },
+    { id: 'sunset', gradient: 'linear-gradient(135deg, #f97316, #fb7185)', accent: '#e08a24' },
+    { id: 'forest', gradient: 'linear-gradient(135deg, #059669, #22c55e)', accent: '#17995a' },
+    { id: 'twilight', gradient: 'linear-gradient(135deg, #7c3aed, #2563eb)', accent: '#6a3bc0' },
   ];
 
   const selectedGradient =
